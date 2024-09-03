@@ -64,15 +64,15 @@ int run_command( std::string appl ) {
     if (pid)
         return pid;
 
-    std::string shell = getenv("SHELL");
+    const char * shell = getenv("SHELL");
 
-    if ( shell != "" )
+    if ( shell == NULL )
         shell = "/bin/sh";
 
     if ( ! noexec ) { // we'll do it live
         execl(
-                shell.c_str(),
-                shell.c_str(),
+                shell,
+                shell,
                 "-c",
                 appl.c_str(),
                 static_cast<void*>(NULL)
